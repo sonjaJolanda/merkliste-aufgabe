@@ -51,16 +51,6 @@
         </table>
         <hr />
         <h2>Neue Notiz anlegen</h2>
-        <?php
-          if(isset($_POST['insert'])) { 
-            echo "Insertion has been isseted: isset: " . isset($_POST['insert']) . "\n";
-            require_once 'notes_post.php';
-            $note = new Note_post();
-            $note->post_note();
-            unset($_POST['insert']);
-            echo "Insertion has been unseted: isset: " . isset($_POST['insert']);
-          }
-        ?>
         <form method="post">
           <div class="row">
             <div class="col-12">
@@ -81,10 +71,30 @@
             </div>
             <div class="col-12">
               <br />
-              <button class="btn btn-success" name="insert">Anlegen</button>
+              <button class="btn btn-success" id="insert" type="submit">Anlegen</button>
               <button class="btn btn-danger">Zurücksetzen</button>
             </div>
           </div>
+          <script>
+            document.getElementById('insert').addEventListener("click", function () {
+
+              var name = document.getElementById('name').value;
+              var description = document.getElementById('description').value;
+              var date = document.getElementById('date').value;
+              var time = document.getElementById('time').value;
+              var formData = {
+                name: name,
+                description: description,
+                date: date,
+                time: time,
+              };
+
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', 'notes_post.php');
+              xhr.setRequestHeader('Content-Type', 'application/json');
+              xhr.send(JSON.stringify(formData));
+            });
+          </script>
         </form>
       </div>
     </div>
