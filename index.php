@@ -74,13 +74,13 @@
             </div>
             <div class="col-12">
               <br />
-              <button class="btn btn-success" type="submit" name="insert">Anlegen</button>
+              <button class="btn btn-success" type="submit" name="submit">Anlegen</button>
               <button class="btn btn-danger">Zurücksetzen</button>
             </div>
           </div>
         </form>
         <?php
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['insert'])) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit'])) {
           require_once 'notes.php';
           $note = new Note();
           $note->post_note();
