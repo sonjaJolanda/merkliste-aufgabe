@@ -52,11 +52,13 @@
         <hr />
         <h2>Neue Notiz anlegen</h2>
         <?php
-          if(isset($_POST['submit'])) { 
-            echo "Submit has been isseted";
+          if(isset($_POST['insert'])) { 
+            echo "Insertion has been isseted: isset: " . isset($_POST['insert']) . "\n";
             require_once 'notes_post.php';
             $note = new Note_post();
             $note->post_note();
+            unset($_POST['insert']);
+            echo "Insertion has been unseted: isset: " . isset($_POST['insert']);
           }
         ?>
         <form method="post">
@@ -79,7 +81,7 @@
             </div>
             <div class="col-12">
               <br />
-              <button class="btn btn-success" type="submit" name="submit">Anlegen</button>
+              <button class="btn btn-success" name="insert">Anlegen</button>
               <button class="btn btn-danger">Zurücksetzen</button>
             </div>
           </div>
