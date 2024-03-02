@@ -43,18 +43,23 @@
                 <td>
                   <?php echo $row['Uhrzeit']; ?>
                 </td>
-                <td>
-                  <?php echo $row['Status']; ?>
-                </td>
-                <!-- <td><input type="checkbox" /></td> -->
-                <!-- Aktion: <span class="fa fa-edit mr-1"></span><span class="fa fa-times"></span> -->
+                <td><input type="checkbox" /></td> <!-- <?php echo $row['Status']; ?> -->
+                <td><span class="fa fa-edit mr-1"></span><span class="fa fa-times"></span></td>
               </tr>
             <?php } ?>
           </tbody>
         </table>
         <hr />
         <h2>Neue Notiz anlegen</h2>
-        <form action="index.php" method="post">
+        <?php
+          if(isset($_POST['submit'])) { 
+            echo "Submit has been isseted";
+            require_once 'notes_post.php';
+            $note = new Note_post();
+            $note->post_note();
+          }
+        ?>
+        <form method="post">
           <div class="row">
             <div class="col-12">
               <label>Name</label>
@@ -79,13 +84,6 @@
             </div>
           </div>
         </form>
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit'])) {
-          require_once 'notes.php';
-          $note = new Note();
-          $note->post_note();
-        }
-        ?>
       </div>
     </div>
   </div>
