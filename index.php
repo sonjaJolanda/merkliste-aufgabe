@@ -27,8 +27,8 @@
           <tbody>
             <tr>
               <?php
-              require_once 'notes.php';
-              $notes = Note::get_notes();
+              require_once 'notes_get.php';
+              $notes = Note_get::get_notes();
               while ($row = mysqli_fetch_assoc($notes)) {
                 ?>
                 <td>
@@ -85,12 +85,12 @@
               var formData = {
                 name: name,
                 description: description,
-                date: date,
-                time: time,
+                date: date ? date : "do change today", // Todo
+                time: time ? time : "do change time", // Todo
               };
 
               var xhr = new XMLHttpRequest();
-              xhr.open('POST', 'notes_post.php');
+              xhr.open('POST', 'notes.php');
               xhr.setRequestHeader('Content-Type', 'application/json');
               xhr.send(JSON.stringify(formData));
             });
