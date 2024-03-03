@@ -43,7 +43,19 @@
                 <td>
                   <?php echo $row['Uhrzeit']; ?>
                 </td>
-                <td><input type="checkbox" /></td> <!-- <?php echo $row['Status']; ?> -->
+                <td><input type="checkbox" id="status-checkbox" <?php echo $row['Status']==1 ? "checked" : ""; ?>/></td> 
+                <script>
+                    document.getElementById('status-checkbox').addEventListener("change", function () {
+                      var statusCheckbox = document.getElementById('status-checkbox').value;
+                      var formData = {
+                        id: $row['ID'],
+                        status: statusCheckbox.checked};
+                      var xhr = new XMLHttpRequest();
+                      xhr.open('POST', 'notes.php');
+                      xhr.setRequestHeader('Content-Type', 'application/json');
+                      xhr.send(JSON.stringify(formData));
+                          });
+                  </script>
                 <td><span class="fa fa-edit mr-1"></span><span class="fa fa-times"></span></td>
               </tr>
             <?php } ?>
@@ -71,12 +83,12 @@
             </div>
             <div class="col-12">
               <br />
-              <button class="btn btn-success" id="insert" type="submit">Anlegen</button>
+              <button class="btn btn-success" id="insert-button" type="submit">Anlegen</button>
               <button class="btn btn-danger">Zurücksetzen</button>
             </div>
           </div>
           <script>
-            document.getElementById('insert').addEventListener("click", function () {
+            document.getElementById('insert-button').addEventListener("click", function () {
 
               var name = document.getElementById('name').value;
               var description = document.getElementById('description').value;

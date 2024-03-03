@@ -7,10 +7,10 @@
 // test with a fresh data set (delete all data and try)
 // git repo is private
 // make a config file for open connection
+// rename notes_get
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    print_r("post method from notes"); // Todo remove
     $entityBody = json_decode(file_get_contents('php://input'), true);
     $note = new Note($entityBody["name"], $entityBody["description"]);
     $note->post_note();
@@ -50,15 +50,6 @@ class Note
         $post_stmt->execute() or trigger_error($post_stmt->error, E_USER_ERROR);
         $post_stmt->close();
         $connection->close();
-    }
-
-    public static function get_notes()
-    {
-        $connection = Note::open_connection();
-        $get_query = 'select * from notizen';
-        $result = mysqli_query($connection, $get_query);
-        $connection->close();
-        return $result;
     }
 
     public static function open_connection(){
